@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:peminjam_perpustakaan_kelas_b/app/data/model/response_login.dart';
 import 'dart:developer';
 
 import '../../../data/constant/endpoint.dart';
@@ -46,6 +47,8 @@ class LoginController extends GetxController {
             data: dio.FormData.fromMap(
                 {"username": usernameController.text.toString(), "password": passwordController.text.toString()}));
         if (response.statusCode == 200) {
+          ResponseLogin responseLogin = ResponseLogin.fromJson(response.data);
+          await StorageProvider.write(StorageKey.idUser, responseLogin.data!.id!.toString());
           await StorageProvider.write(StorageKey.status, "logged");
           Get.offAllNamed(Routes.HOME);
         } else {
