@@ -40,8 +40,8 @@ class AddPeminjamanController extends GetxController {
       if(formKey.currentState!.validate()){
         final response = await ApiProvider.instance().post(Endpoint.pinjam,
             data: {
-              "user_id":StorageProvider.read(StorageKey.idUser),
-              "book_id":Get.parameters['id'],
+              "user_id":int.parse(StorageProvider.read(StorageKey.idUser)),
+              "book_id":int.parse(Get.parameters['id'].toString()),
               "tanggal_pinjam":tanggalPinjamController.text.toString(),
               "tanggal_kembali":tanggalKembaliController.text.toString()
             });
